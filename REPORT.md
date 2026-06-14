@@ -59,7 +59,10 @@ For example, if the input list is:
 The algorithm first rearranges the values into a max-heap. Then the largest value is moved to the end of the list. After all extraction steps are completed, the final sorted output is:
 
 [4, 6, 9, 18, 31, 40, 52, 71]
+```
+
 This step-by-step process shows why Heapsort is predictable. It does not rely on the original order of the list in the same way some other sorting algorithms do. Whether the list is already sorted, reverse sorted, or random, Heapsort still builds a heap and repeatedly extracts the maximum value.
+
 Time Complexity Analysis of Heapsort
 Heapsort has two main phases: heap construction and repeated extraction.
 
@@ -69,10 +72,11 @@ The extraction phase takes O(n log n) time. After the max-heap is built, the alg
 
 The total time complexity can be written as:
 
-
+```
 O(n) + O(n log n) = O(n log n)
 Therefore, the overall time complexity of Heapsort is:
 O(n log n)
+```
 This complexity applies in the best case, average case, and worst case. Even if the input is already sorted, the algorithm still builds a heap and performs the extraction process. This is why Heapsort does not improve to O(n) for already sorted input.
 The PowerPoint material used for this assignment also explains that Heapsort has O(n log n) running time and uses a heap-building phase followed by repeated extraction of the largest element (BITS Pilani WILP Division, 2026).
 
@@ -80,70 +84,82 @@ Space Complexity of Heapsort
 In theory, Heapsort can be implemented with O(1) additional space because it can sort the list in place. However, my implementation creates a copy of the original list before sorting. I made this choice to protect the original input from being changed.
 
 Because of this copy, my version uses:
-
+``
 O(n)
 ``
 
-extra space.
 
 If the copy were removed, the algorithm could sort the original list directly and use only constant extra space. However, keeping the original list unchanged makes the implementation safer for testing and easier to compare with other algorithms.
 
 The main additional memory in this project comes from:
 
-Copying the input list in Heapsort
-Temporary lists in Merge Sort
-Temporary lists in Quicksort
-The heap list and dictionary in the priority queue
+- Copying the input list in Heapsort
+
+- Temporary lists in Merge Sort
+
+- Temporary lists in Quicksort
+
+- The heap list and dictionary in the priority queue
+
 The heap itself is still efficient because it does not require separate tree nodes or pointer connections.
 
-Empirical Comparison With Other Sorting Algorithms
+---
+
+`Empirical Comparison With Other Sorting Algorithms`
+
 The project compares Heapsort with Merge Sort and Quicksort. The comparison uses three input distributions:
 
-Sorted input
-Reverse-sorted input
-Random input
-The program tests the following input sizes:
-
-
+- Sorted input
+- Reverse-sorted input
+- Random input
+- The program tests the following input sizes:
+```
 100, 1000, and 3000
-
-Each algorithm is timed using Python’s time.perf_counter() function. The output of each sorting algorithm is also validated against Python’s built-in sorted() function to make sure the result is correct.
+```
+Each algorithm is timed using Python’s `time.perf_counter()` function. The output of each sorting algorithm is also validated against Python’s built-in sorted() function to make sure the result is correct.
 
 A sample benchmark run is shown below. The exact timing may change depending on the computer, Python version, memory, processor speed, and background processes.
 
+```table
 Input Size	Input Type	Algorithm	Sample Runtime in Seconds
-100	Sorted	Heap Sort	0.000115
-100	Sorted	Merge Sort	0.000153
-100	Sorted	Quick Sort	0.000095
-100	Reverse	Heap Sort	0.000135
-100	Reverse	Merge Sort	0.000159
-100	Reverse	Quick Sort	0.000075
-100	Random	Heap Sort	0.000109
-100	Random	Merge Sort	0.000192
-100	Random	Quick Sort	0.000094
-1000	Sorted	Heap Sort	0.002008
-1000	Sorted	Merge Sort	0.001920
-1000	Sorted	Quick Sort	0.001267
-1000	Reverse	Heap Sort	0.001950
-1000	Reverse	Merge Sort	0.001993
-1000	Reverse	Quick Sort	0.000836
-1000	Random	Heap Sort	0.001880
-1000	Random	Merge Sort	0.002549
-1000	Random	Quick Sort	0.001231
-3000	Sorted	Heap Sort	0.007564
-3000	Sorted	Merge Sort	0.005829
-3000	Sorted	Quick Sort	0.003009
-3000	Reverse	Heap Sort	0.006410
-3000	Reverse	Merge Sort	0.006073
-3000	Reverse	Quick Sort	0.003149
-3000	Random	Heap Sort	0.007120
-3000	Random	Merge Sort	0.008931
-3000	Random	Quick Sort	0.004553
-The results show that all three sorting algorithms work correctly for the tested inputs. Quicksort appears faster in this sample run because the implementation uses the middle element as the pivot. This helps avoid poor behavior for already sorted and reverse-sorted input. Merge Sort also performs consistently, but it uses extra memory because it creates new lists during the merge process. Heapsort is sometimes slightly slower in the sample timing, but it is still very consistent and keeps the same O(n log n) time complexity across input types.
+100	        Sorted	    Heap Sort	0.000115
+100	        Sorted	    Merge Sort	0.000153
+100	        Sorted	    Quick Sort	0.000095
+100	        Reverse	    Heap Sort	0.000135
+100	        Reverse	    Merge Sort	0.000159
+100	        Reverse	    Quick Sort	0.000075
+100	        Random	    Heap Sort	0.000109
+100	        Random	    Merge Sort	0.000192
+100	        Random	    Quick Sort	0.000094
+1000	    Sorted	    Heap Sort	0.002008
+1000	    Sorted	    Merge Sort	0.001920
+1000	    Sorted	    Quick Sort	0.001267
+1000	    Reverse	    Heap Sort	0.001950
+1000	    Reverse	    Merge Sort	0.001993
+1000	    Reverse	    Quick Sort	0.000836
+1000	    Random	    Heap Sort	0.001880
+1000	    Random	    Merge Sort	0.002549
+1000	    Random	    Quick Sort	0.001231
+3000	    Sorted	    Heap Sort	0.007564
+3000	    Sorted	    Merge Sort	0.005829
+3000	    Sorted	    Quick Sort	0.003009
+3000	    Reverse	    Heap Sort	0.006410
+3000	    Reverse	    Merge Sort	0.006073
+3000	    Reverse	    Quick Sort	0.003149
+3000	    Random	    Heap Sort	0.007120
+3000	    Random	    Merge Sort	0.008931
+3000	    Random	    Quick Sort	0.004553
+```
+
+
+The results show that all three sorting algorithms work correctly for the tested inputs. Quicksort appears faster in this sample run because the implementation uses the middle element as the pivot. This helps avoid poor behavior for already sorted and reverse-sorted input. Merge Sort also performs consistently, but it uses extra memory because it creates new lists during the merge process. Heapsort is sometimes slightly slower in the sample timing, but it is still very consistent and keeps the same `O(n log n)` time complexity across input types.
 
 The most important observation is that theoretical complexity and actual runtime are related, but they are not always exactly the same in practice. Constant factors, recursion overhead, memory allocation, and implementation style can affect the timing. Larkin, Sen, and Tarjan (2014) also discuss that workload patterns and implementation choices can influence the observed performance of priority queue structures.
 
-Priority Queue Implementation Design
+---
+
+`Priority Queue Implementation Design`
+
 The priority queue implementation is stored in the file priority_queue_scheduler.py. The main goal of this part is to simulate a scheduler that always processes the most urgent job first.
 
 The implementation uses two custom classes:
@@ -155,18 +171,22 @@ UrgencyQueue
 
 The Job class represents one scheduled task. It stores:
 
-job_code
-priority_score
-created_at
-deadline
-note
+- job_code
+- priority_score
+- created_at
+- deadline
+- note
+
 The UrgencyQueue class stores jobs in a binary max-heap. I chose a max-heap because the scheduler should always remove the job with the highest priority first. This matches real-world scheduling behavior, where urgent tasks should be handled before less important tasks.
 
 The priority queue stores jobs in a Python list named _items. It also uses a dictionary named _where. The _where dictionary maps each job code to its current index in the heap. This helps with priority updates because the program can find a job directly instead of scanning through the full heap.
 
 This implementation is more realistic than a simple priority queue that only stores numbers. In real systems, tasks often include identifiers, deadlines, arrival times, and descriptions. The Job class supports this by storing multiple fields for each task.
 
-Priority Ordering Rules
+---
+
+`Priority Ordering Rules`
+
 The priority queue does not decide order based only on the priority score. Instead, it uses three comparison rules:
 
 The job with the higher priority_score comes first.
@@ -180,68 +200,80 @@ Priority Queue Operations and Complexity
 Insert Operation
 The insert(job) method adds a new job to the priority queue. The new job is first placed at the end of the heap list. Then _bubble_up() is called to move the job upward until the max-heap property is restored.
 
+```
 The time complexity is:
-
-
 O(log n)
+```
 
 This is because the job may move from a leaf position up toward the root, and the height of a binary heap is logarithmic.
 
-Extract Max Operation
+---
+
+`Extract Max Operation`
+
 The extract_max() method removes and returns the most urgent job. Since this is a max-heap, the most urgent job is always stored at index 0.
 
 After removing the root job, the last job in the heap is moved to the root position. Then _bubble_down() is used to restore the heap property.
-
+```
 The time complexity is:
-
-
-
 O(log n)
-
+```
 This is because the replacement job may need to move downward through the height of the heap.
 
-Increase Key Operation
+--- 
+
+`Increase Key Operation`
+
 The increase_key(job_code, new_priority) method increases the priority of an existing job. The queue first uses the _where dictionary to locate the job in constant time. After the priority is updated, the job may need to move upward because it has become more urgent.
-
+```
 The time complexity is:
-
-
 O(log n)
+```
 
 Without the dictionary, locating the job would require a linear search. With the dictionary, locating the job is efficient, and the main cost is restoring heap order.
 
-Decrease Key Operation
+---
+
+`Decrease Key Operation`
+
 The decrease_key(job_code, new_priority) method lowers the priority of an existing job. After the priority decreases, the job may need to move downward because other jobs may now have higher priority.
-
+```
 The time complexity is:
-
-
 O(log n)
+```
+--- 
 
-Peek Max Operation
+`Peek Max Operation`
+
 The peek_max() method returns the highest-priority job without removing it. Since the highest-priority job is always at the root, this operation takes:
+`O(1)`
 
+---
 
-O(1)
-
-Is Empty Operation
+`Is Empty Operation`
 The is_empty() method checks whether the priority queue has any jobs. It only checks the length of the list, so the time complexity is:
+`O(1)`
 
+---
 
-O(1)
-
-Priority Queue Complexity Summary
-Operation	Description	Time Complexity
-insert(job)	Adds a new job and restores heap order	O(log n)
+`Priority Queue Complexity Summary`
+```
+Operation	    Description	                            Time Complexity
+insert(job)	    Adds a new job and restores heap order	O(log n)
 extract_max()	Removes and returns the most urgent job	O(log n)
 increase_key()	Raises priority and moves job upward	O(log n)
 decrease_key()	Lowers priority and moves job downward	O(log n)
-peek_max()	Reads the highest-priority job	O(1)
-is_empty()	Checks whether the queue is empty	O(1)
-size()	Returns the number of jobs	O(1)
+peek_max()	    Reads the highest-priority job	        O(1)
+is_empty()	    Checks whether the queue is empty	    O(1)
+size()	        Returns the number of jobs	            O(1)
+```
+
 Microsoft Learn (2026) explains that priority queues commonly support operations such as enqueue, dequeue, peek, and priority changes. This matches the structure of my implementation, although my version is written in Python and customized for task scheduling.
 
-Scheduler Simulation
+---
+
+`Scheduler Simulation`
+
 The scheduler simulation creates several sample jobs and inserts them into the priority queue. Example tasks include production incident handling, code review, database backup validation, documentation work, and urgent service patching.
 
 After inserting the jobs, the program increases the priority of one job. This tests whether the heap can correctly adjust after a priority update. Once the update is complete, the scheduler repeatedly calls extract_max() until the queue becomes empty.
@@ -250,7 +282,10 @@ Each extracted job represents the next job that should be executed. Since the qu
 
 This simulation shows how a heap-based priority queue can be used in a real scheduling situation. For example, a production issue should normally be handled before a documentation update. If two issues have the same urgency, the one with the closer deadline should be handled first.
 
-Edge Case Handling
+---
+
+`Edge Case Handling`
+
 The implementation includes several edge-case checks to make the program more reliable.
 
 First, the priority queue checks for duplicate job codes before inserting a new job. This prevents two jobs with the same identifier from being stored in the queue.
@@ -265,7 +300,10 @@ The Heapsort code also handles small input lists naturally. If the list is empty
 
 These edge cases are important because they help the program behave correctly in more situations.
 
-Discussion of Results
+---
+
+### `Discussion of Results`
+
 The Heapsort implementation worked correctly for sorted, reverse-sorted, and random input. The program validates each result by comparing it with Python’s built-in sorted() function. This validation step is useful because it confirms that the custom sorting logic is producing correct output.
 
 The empirical comparison showed that Heapsort performed consistently across the different input patterns. It did not become extremely slow for already sorted or reverse-sorted input. This supports the theoretical analysis that Heapsort runs in O(n log n) time in the best, average, and worst cases.
@@ -276,14 +314,18 @@ The priority queue simulation also behaved as expected. Jobs with higher priorit
 
 Overall, the implementation and testing show that heaps are useful for both sorting and scheduling. They offer a strong balance between performance, simple storage, and practical use.
 
-Real-World Applications
+---
+
+### `Real-World Applications`
+
 Heap data structures are useful in many real-world systems. In operating systems, a priority queue can help decide which process should run next. In customer support systems, urgent tickets can be handled before routine requests. In network systems, packets may be processed based on priority. In simulation systems, future events can be stored based on when they should occur.
 
 Heaps are also useful in graph algorithms. For example, shortest path algorithms often use priority queues to select the next most promising node. This shows that heaps are not only useful for academic exercises but also for practical software systems.
 
 The scheduler in this project is a small example of this idea. Each job has a priority score, deadline, creation time, and note. The queue uses this information to decide which job should be handled next. This is similar to real-world systems where urgent tasks must be prioritized fairly and efficiently.
 
-Conclusion
+## Conclusion
+
 This assignment helped me understand heap data structures more clearly by implementing them manually in Python. The Heapsort implementation showed how a max-heap can be used to sort a list in predictable O(n log n) time. The priority queue implementation showed how heaps can be used for scheduling tasks based on urgency.
 
 The class-based design made the project easier to organize. The HeapSorter class handled sorting, while the UrgencyQueue and Job classes handled priority-based scheduling. The use of a dictionary in the priority queue made priority updates more efficient because jobs could be found quickly by their job code.
